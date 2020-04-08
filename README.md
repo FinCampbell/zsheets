@@ -15,7 +15,7 @@ In the folder are 5 items:
 5- templates: where html templates are stored
 
 
-#Current web pages
+# Current web pages
 
 From what I figured out, the way django works is that it has a list of urls (zsheets/urls.py file). When a url is typed in the address bar, django looks through this list (parts of the list import other url lists so it will also look in zapp/url.py for example). 
 
@@ -37,7 +37,7 @@ This page shows a users dashboard and can only be viewed if the user is logged i
 
 There are other web pages but they do not really have anything atm so I have left them out of this list, you can find them in zapp/urls.py with their views in zapp/views.py
 
-#Templates
+# Templates
 
 The views themselves are in python and so you can’t just put html there directly as far as I’m aware.
 
