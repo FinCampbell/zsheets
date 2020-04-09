@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Your Dashboard{% endblock title %}
+
+{% block content %}
+
+    {# Hero Section #}
+				<div class="mkt-s1">
+					<div class="mkt-s1-body container ">
+							<div class="row">
+									<h1 class="col-md-8"> Hello {{ user.username }}, this is your dashboard.</h1>
+							</div>
+					</div>
+				</div>
+
+    {# Main Section #}
+
+		<div class="mkt-s2 container">
+		    <h2 class="mkt-s2-h">Functions</h2>
+		    <div class="mkt-s2-body">
+		        <div class="col-md-4 mkt-vp">
+		            <h5>Your Details</h5>
+									<p> Your User ID: {{user.id}} <br>
+											Your Manager: {{ user.employee.manager }} </p>
+											<a class="btn btn-primary" href="#" role="button">Your Employee Details</a>
+		        </div>
+
+		        <div class="col-md-4 mkt-vp">
+		            <h5>View Timesheets</h5>
+		            <p> View current and previous timesheets</p>
+								<a class="btn btn-primary" href="{% url 'view_schedule'%}" role="button">View Timesheets</a>
+		        </div>
+
+		        <div class="col-md-4 mkt-vp">
+		            <h5>Submit Timesheets</h5>
+		            <p>Submit your timesheets to be approved by your manager.</p>
+								<a class="btn btn-primary" href="{% url 'submit_timesheet'%}" role="button">View Timesheets</a>
+		        </div>
+		    </div>
+  </div>
+{% endblock content %}
