@@ -35,6 +35,20 @@
 		            <p>Submit your timesheets to be approved by your manager.</p>
 								<a class="btn btn-primary" href="{% url 'submit_timesheet'%}" role="button">View Timesheets</a>
 		        </div>
+			    
+	{%if perms.can_approve%}
+            <div class="col-md-4 mkt-vp">
+               <h5>Approve Timesheets</h5>
+               <p>View all employee timesheets that need approval</p>
+               <a class="btn btn-primary" href="{% url 'approve_timesheets'%}" role="button">View Timesheets for Approval</a>
+           </div>
+
+           <div class="col-md-4 mkt-vp">
+              <h5>Search Schedules</h5>
+              <p>Search for employees' schedules</p>
+              <a class="btn btn-primary" href="{% url 'search_schedules'%}" role="button">Search Schedule</a>
+          </div>
+        {%endif%}
 		    </div>
   </div>
 {% endblock content %}
