@@ -1,6 +1,6 @@
 from django.db import models
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 # Create your models here
@@ -9,10 +9,6 @@ from django.dispatch import receiver
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     manager = models.ForeignKey('Manager', on_delete=models.CASCADE, null=True, blank=True)
-
-    def submit_timesheet(self, timesheet):
-        self.manager.pending_timesheets.append(timesheet)
-
 
     def __str__(self):
         return self.user.username
@@ -23,7 +19,7 @@ class Employee(models.Model):
             Employee.objects.create(user=instance)
 
     @receiver(post_save, sender=User)
-    def save_emplpoyee_profile(sender, instance, **kwargs):
+    def save_employee_profile(sender, instance, **kwargs):
         instance.employee.save()
 
 class Manager(models.Model):
@@ -35,14 +31,9 @@ class Manager(models.Model):
     def __str__(self):
         return self.employee_account.user.username
 
-#class shift_worked(models.Model):
- #   time_in = models.TimeField()
-  #  time_out = models.TimeField()
-
 
 class Timesheet(models.Model):
     week_beginning = models.DateField()
-   # days = [shift_worked() for _ in range(6)]
 
     monday = models.IntegerField(default=0)
     tuesday = models.IntegerField(default=0)
@@ -53,6 +44,13 @@ class Timesheet(models.Model):
     approved_status = models.BooleanField(default=False)
 
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
+
+    class Meta:
+        permissions = [
+                ("can_approve", "Can approve timesheets"),
+                ("can_search", "Can search employees' timesheets"),
+        ]
+
 
     def __str__(self):
         return str(self.week_beginning)
