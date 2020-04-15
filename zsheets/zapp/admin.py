@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from .models import Employee, Manager, Timesheet
 
 class TimesheetInline(admin.StackedInline):
@@ -13,4 +13,5 @@ class EmployeeAdmin(admin.ModelAdmin):
 
 admin.site.register(Employee, EmployeeAdmin)
 admin.site.register(Manager)
+#admin.site.register(Permission)
 

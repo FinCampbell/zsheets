@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from django.contrib.auth.decorators import login_required
-
+from .forms import TimesheetForm
 from .models import Employee
 
 def login(request):
@@ -15,7 +15,16 @@ def user_dashboard(request):
     return render(request, 'zapp/dashboard.html', {})
 
 def submit_timesheet(request):
-    return HttpResponse("This is where you submit timesheets")
+    if request.method == "POST":
+        form = TimesheetForm(request.POST)
+        if form.is_valid():
+            timesheet = form.save(commit=False)
+            timesheet.employee = request.user.employee
+            timeseet.save()
+            return HttpResponse("Your submission has been successful, please wait for your managers approval.")
+    else:
+        form = TimesheetForm()
+    return render(request, 'zapp/submit_timesheet.html', {'form' : form})
 
 def view_schedule(request):
     return HttpResponse("This is where you view your schedule, approved timesheets")

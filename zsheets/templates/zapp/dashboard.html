@@ -36,7 +36,7 @@
 								<a class="btn btn-primary" href="{% url 'submit_timesheet'%}" role="button">View Timesheets</a>
 		        </div>
 			    
-	{%if perms.can_approve%}
+	{%if perms.zapp.can_approve%}
             <div class="col-md-4 mkt-vp">
                <h5>Approve Timesheets</h5>
                <p>View all employee timesheets that need approval</p>
