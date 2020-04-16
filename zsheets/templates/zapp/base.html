@@ -8,6 +8,7 @@
     
 
     {# Navigation Menu #}
+  {%block header%}
     <header>
         <div class="navbar navbar-default navbar-static-top
         {% block nav-style %}{% endblock %}">
@@ -35,6 +36,7 @@
             </div>
         </div>
     </header>
+ {%endblock header%}
 	
     {# The Document Body #}
     <div id="site-wrapper">
