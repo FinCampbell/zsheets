@@ -1,54 +1,58 @@
 {% extends 'zapp/base.html' %}
 {% block title %}Your Dashboard{% endblock title %}
+{%block BackButton%}{%endblock BackButton%}
 
 {% block content %}
 
     {# Hero Section #}
-				<div class="mkt-s1">
-					<div class="mkt-s1-body container ">
-							<div class="row">
-									<h1 class="col-md-8"> Hello {{ user.username }}, this is your dashboard.</h1>
-							</div>
-					</div>
-				</div>
+            <div class="jumbotron text-center">
+              <h1>Your Dashboard</h1>
+              <p>Hello {{ user.username }}, this is your dashboard.</p>
+            </div>
+
 
     {# Main Section #}
-
+<body>
 		<div class="mkt-s2 container">
 		    <h2 class="mkt-s2-h">Functions</h2>
 		    <div class="mkt-s2-body">
-		        <div class="col-md-4 mkt-vp">
-		            <h5>Your Details</h5>
-									<p> Your User ID: {{user.id}} <br>
-											Your Manager: {{ user.employee.manager }} </p>
-											<a class="btn btn-primary" href="#" role="button">Your Employee Details</a>
-		        </div>
+          <div class="row text-center">
 
-		        <div class="col-md-4 mkt-vp">
-		            <h5>View Timesheets</h5>
-		            <p> View current and previous timesheets</p>
-								<a class="btn btn-primary" href="{% url 'my_schedule'%}" role="button">View Timesheets</a>
-		        </div>
+             <div class="col-sm-6">
+               <div class="thumbnail">
+                 <p><strong>View Timesheets</strong></p>
+                 <p>View current and previous timesheets</p>
+                 <a class="btn" href="{% url 'my_schedule'%}" role="button">View Timesheets</a>
+               </div>
+             </div>
 
-		        <div class="col-md-4 mkt-vp">
-		            <h5>Submit Timesheets</h5>
-		            <p>Submit your timesheets to be approved by your manager.</p>
-								<a class="btn btn-primary" href="{% url 'submit_timesheet'%}" role="button">View Timesheets</a>
-		        </div>
-			    
+             <div class="col-sm-6">
+               <div class="thumbnail">
+                 <p><strong>Submit Timesheets</strong></p>
+                 <p>Submit your timesheets to be approved.</p>
+                 <a class="btn" href="{% url 'submit_timesheet'%}" role="button">Submit Timesheets</a>
+               </div>
+             </div>
+
 	{%if perms.zapp.can_approve%}
-            <div class="col-md-4 mkt-vp">
-               <h5>Approve Timesheets</h5>
-               <p>View all employee timesheets that need approval</p>
-               <a class="btn btn-primary" href="{% url 'approve_timesheets'%}" role="button">View Timesheets for Approval</a>
-           </div>
+            <div class="col-sm-6" height="100px">
+              <div class="thumbnail">
+                <p><strong>Approve Timesheets</strong></p>
+                <p>View all employee timesheets that need approval</p>
+                <a class="btn" href="{% url 'approve_timesheets'%}" role="button">View Timesheets for Approval</a>
+              </div>
+            </div>
 
-           <div class="col-md-4 mkt-vp">
-              <h5>Search Schedules</h5>
-              <p>Search for employees' schedules</p>
-              <a class="btn btn-primary" href="{% url 'search_schedules'%}" role="button">Search Schedule</a>
-          </div>
-        {%endif%}
+            <div class="col-sm-6">
+              <div class="thumbnail">
+                <p><strong>Search Schedules</strong></p>
+                <p>Search for employees' schedules</p>
+                <a class="btn" href="{% url 'search_schedules'%}" role="button">Search Schedule</a>
+              </div>
+            </div>
+  {%endif%}
 		    </div>
-  </div>
+      </div>
+    </div>
+  </body>
 {% endblock content %}
