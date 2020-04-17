@@ -3,9 +3,9 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.http import HttpResponse
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from .forms import TimesheetForm
-from .models import Employee
+from .models import Employee, Timesheet
 
 def login(request):
     return redirect('/accounts/login/')
@@ -14,6 +14,7 @@ def login(request):
 def user_dashboard(request):
     return render(request, 'zapp/dashboard.html', {})
 
+@login_required
 def submit_timesheet(request):
     if request.method == "POST":
         form = TimesheetForm(request.POST)
@@ -26,13 +27,31 @@ def submit_timesheet(request):
         form = TimesheetForm()
     return render(request, 'zapp/submit_timesheet.html', {'form' : form})
 
-def view_schedule(request):
-    return HttpResponse("This is where you view your schedule, approved timesheets")
+@login_required
+def my_schedule(request):
+    my_timesheets = Timesheet.objects.filter(employee = request.user.employee, approved_status=True)
+    context = {'my_timesheets' : my_timesheets}
+    return render(request, 'zapp/my_schedule.html',context)
 
 #upper management pages
 
+@permission_required('zapp.can_search')
 def search_schedules(request):
     return HttpResponse("This is where you search for schedules")
 
+@permission_required('zapp.can_approve')
 def approve_timesheets(request):
-    return HttpResponse("This is where you approve timesheets")
+    if request.method == "POST":
+        try:
+            timesheet = Timesheet.objects.get(id=request.POST['timesheet'])
+            
+        except (KeyError, Timesheet.DoesNotExist):
+            return HttpResponse('error, refresh page')
+
+        else:
+            timesheet.approved_status = True
+            timesheet.save()
+            return HttpResponse('Timesheet approved')
+    else:
+        pending_timesheets = Timesheet.objects.filter(approved_status=False)
+    return render(request, 'zapp/approve_timesheets.html', {'pending_timesheets' : pending_timesheets})

@@ -1,10 +1,16 @@
-I should be able to pass on a list of the users timesheets as context, assume that it'll be called timesheet_collection.
-There's quite a few ways that you can do this, you can maybe list each timesheet by its week beginning and then have it link to
-timesheet_detail page thats unique to the timesheet.
-You might also just have the details of every timesheet here as a kind of list.
-Maybe follow a similiar methodology to how it is shown in the admin pages or use that to give you some ideas.
+{% extends 'zapp/base.html'%}
 
-This page might be of some use: https://docs.djangoproject.com/en/3.0/intro/tutorial03/
-^^ Think of latest_question_list as timesheet_collection in our case.
+{% block content %}
 
-You won't be able to test the template until the view itself is changed, I should hopefully get that done by tonight (Friday)
+{% if my_timesheets %}
+    <ul>
+    {% for timesheet in my_timesheets %}
+   <p> Week Beginning: {{ timesheet }} Mon: {{ timesheet.monday }} Tue: {{ timesheet.tuesday }} Wed: {{ timesheet.wednesday }} Thur: {{ timesheet.thursday }} Fri: {{ timesheet.friday }} </p>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No timesheets found.</p>
+{% endif %}
+
+{% endblock content %}
+

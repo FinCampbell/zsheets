@@ -1,0 +1,19 @@
+{% extends 'zapp/base.html'%}
+
+{% block content %}
+
+{% if pending_timesheets %}
+	<ul>
+	{% for timesheet in pending_timesheets %}
+	<form method="post">
+	{% csrf_token %}
+	<p> Employee Name: {{ timesheet.employee.user.first_name }} {{ timesheet.employee.user.last_name }}, ID: {{ timesheet.employee.user.id }}, Week Beginning: {{ timesheet }} Mon: {{ timesheet.monday }} Tue: {{ timesheet.tuesday }} Wed: {{ timesheet.wednesday }} Thur: {{ timesheet.thursday }} Fri: {{ timesheet.friday }} <input type="hidden" name="timesheet" value="{{ timesheet.id }}">  <input type="submit" value="Approve"> </p>
+	</form>
+	{% endfor %}
+	</ul>
+{% else %}
+	<p>No timesheets pending approval</p>
+
+{% endif %}
+
+{% endblock content %}
