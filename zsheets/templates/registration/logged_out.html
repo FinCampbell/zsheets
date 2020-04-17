@@ -1,4 +1,18 @@
+{% extends 'zapp/base.html' %}
+{% load static %}
 <html>
-	<p>Logged out!</p>
-  <a href="{% url 'login'%}">Click here to login again.</a>
+    {% block title %}Log Out{% endblock title %}
+    <!-- overrides header in the base template so that it doesn't show on the log in page -->
+    {%block header%}{%endblock header%}
+
+    {% block content %}
+    <head>
+      <link rel="stylesheet" type="text/css" href="{%static 'css/login.css'%}">
+    </head>
+
+    <body>
+			<p align="center"> Logged out!</p>
+			<a align="center" href="{% url 'login'%}">Click here to login again.</a>
+     </body>
+    {% endblock content %}
 </html>
