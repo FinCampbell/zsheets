@@ -1,16 +1,33 @@
 {% extends 'zapp/base.html'%}
+{% block title %}Your Timesheets{% endblock title %}
 
 {% block content %}
+<body>
+  <div class="mkt-s2 container">
+	    <h2 class="mkt-s2-h">Your Timesheets</h2>
 
-{% if my_timesheets %}
-    <ul>
-    {% for timesheet in my_timesheets %}
-   <p> Week Beginning: {{ timesheet }} Mon: {{ timesheet.monday }} Tue: {{ timesheet.tuesday }} Wed: {{ timesheet.wednesday }} Thur: {{ timesheet.thursday }} Fri: {{ timesheet.friday }} </p>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No timesheets found.</p>
-{% endif %}
+	    <div class="mkt-s2-body">
+				<div class="row text-center">
+
+          {% if my_timesheets %}
+
+              <ul>
+              {% for timesheet in my_timesheets %}
+              <div class="col-sm-12">
+               <div class="thumbnail">
+                 <p> Week Beginning: {{ timesheet }} Mon: {{ timesheet.monday }} Tue: {{ timesheet.tuesday }} Wed: {{ timesheet.wednesday }} Thur: {{ timesheet.thursday }} Fri: {{ timesheet.friday }} </p>
+               </div>
+              </div>
+              {% endfor %}
+              </ul>
+
+          {% else %}
+              <p>No timesheets found.</p>
+          {% endif %}
+
+        </div>
+      </div>
+
+</body>
 
 {% endblock content %}
-
