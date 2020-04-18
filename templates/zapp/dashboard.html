@@ -47,7 +47,9 @@
               <div class="thumbnail">
                 <p><strong>Search Schedules</strong></p>
                 <p>Search for employees' schedules</p>
-                <a class="btn" href="{% url 'search_schedules'%}" role="button">Search Schedule</a>
+                <form action="{% url 'search_schedules' %}" method="get">
+                  <input name="q" type="text" placeholder="Search...">
+                </form>
               </div>
             </div>
   {%endif%}

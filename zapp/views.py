@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
+from django.views.generic import ListView
 
 # Create your views here.
 from django.http import HttpResponse
 
 from django.contrib.auth.decorators import login_required, permission_required
-from .forms import TimesheetForm
-from .models import Employee, Timesheet
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from .forms import TimesheetForm, EmployeeSearch
+from .models import Employee, Timesheet, User
 
 def login(request):
     return redirect('/accounts/login/')
@@ -35,10 +37,17 @@ def my_schedule(request):
 
 #upper management pages
 
-@permission_required('zapp.can_search')
-def search_schedules(request):
-    return HttpResponse("This is where you search for schedules")
-
+#@permission_required('zapp.can_search')
+class EmployeeSearchView(PermissionRequiredMixin, ListView):
+  permission_required = ('zapp.can_approve')
+  model = Timesheet
+  template_name = 'zapp/search_timesheet.html'
+  
+  def get_queryset(self):
+    query = self.request.GET.get('q')
+    object_list =  User.objects.filter(username__iexact=query)
+    return object_list
+  
 @permission_required('zapp.can_approve')
 def approve_timesheets(request):
     if request.method == "POST":
@@ -55,3 +64,4 @@ def approve_timesheets(request):
     else:
         pending_timesheets = Timesheet.objects.filter(approved_status=False)
     return render(request, 'zapp/approve_timesheets.html', {'pending_timesheets' : pending_timesheets})
+  
