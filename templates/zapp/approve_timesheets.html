@@ -1,19 +1,32 @@
 {% extends 'zapp/base.html'%}
+{% block title %}Approve Timesheets{% endblock title %}
 
 {% block content %}
+<body>
+	<div class="mkt-s2 container">
+	    <h2 class="mkt-s2-h">Approve Timesheets</h2>
 
-{% if pending_timesheets %}
-	<ul>
-	{% for timesheet in pending_timesheets %}
-	<form method="post">
-	{% csrf_token %}
-	<p> Employee Name: {{ timesheet.employee.user.first_name }} {{ timesheet.employee.user.last_name }}, ID: {{ timesheet.employee.user.id }}, Week Beginning: {{ timesheet }} Mon: {{ timesheet.monday }} Tue: {{ timesheet.tuesday }} Wed: {{ timesheet.wednesday }} Thur: {{ timesheet.thursday }} Fri: {{ timesheet.friday }} <input type="hidden" name="timesheet" value="{{ timesheet.id }}">  <input type="submit" value="Approve"> </p>
-	</form>
-	{% endfor %}
-	</ul>
-{% else %}
-	<p>No timesheets pending approval</p>
+	    <div class="mkt-s2-body">
+		<div class="row text-center">
+		{% if pending_timesheets %}
+			<ul>
+			{% for timesheet in pending_timesheets %}
+			<form method="post"> {% csrf_token %}
+				<div class="col-sm-12">
+					<div class="thumbnail">
+					<p> Employee Name: {{ timesheet.employee.user.first_name }} {{ timesheet.employee.user.last_name }}, ID: {{ timesheet.employee.user.id }}, Week Beginning: {{ timesheet }} Mon: {{ timesheet.monday }} Tue: {{ timesheet.tuesday }} Wed: {{ timesheet.wednesday }} Thur: {{ timesheet.thursday }} Fri: {{ timesheet.friday }} <input type="hidden" name="timesheet" value="{{ timesheet.id }}">  <input type="submit" value="Approve"> </p>
+					</div>
+				</div>
+			</form>
+		{% endfor %}
+			</ul>
 
-{% endif %}
-
+		{% else %}
+			<div class="col-sm-12">
+			<div class="thumbnail">
+				<p>No timesheets pending approval</p>
+			</div>
+			</div>
+		{% endif %}
+</body>
 {% endblock content %}
