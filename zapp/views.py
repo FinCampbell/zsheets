@@ -21,7 +21,7 @@ def submit_timesheet(request):
         if form.is_valid():
             timesheet = form.save(commit=False)
             timesheet.employee = request.user.employee
-            timeseet.save()
+            timesheet.save()
             return HttpResponse("Your submission has been successful, please wait for your managers approval.")
     else:
         form = TimesheetForm()
