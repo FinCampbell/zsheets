@@ -1,9 +1,28 @@
-{% extends 'zapp/base.html' %}
+{% extends 'zapp/base.html'%}
+{% block title %}Submit Timesheet{% endblock title %}
 
+<html>
 {% block content %}
-    <h2>Submit new timesheet</h2>
-    <form method="POST" class="timesheet-form">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
-    </form>
+<body>
+<div class="mkt-s2 container">
+    <h2 class="mkt-s2-h">Submit new timesheet</h2>
+
+    <div class="mkt-s2-body">
+      <div class="row text-center">
+
+        <div class="col-sm-12">
+          <div class="thumbnail">
+          <form method="POST" class="timesheet-form">{% csrf_token %}
+              {{ form.as_p }}
+              <button type="submit" class="save btn btn-default">Submit</button>
+          </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
 {% endblock %}
+
+</html>
