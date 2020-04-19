@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, TemplateView
 from django.urls import reverse
 
+from django.core.exceptions import ObjectDoesNotExist
+
 # Create your views here.
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -56,8 +58,12 @@ class EmployeeSearchView(PermissionRequiredMixin, ListView):
   
   def get_queryset(self):
     query = self.request.GET.get('q')
-    object_list =  Timesheet.objects.filter(username__iexact=query)
+    if Timesheet.objects.filter(username__iexact=query).exists():
+      object_list =  Timesheet.objects.filter(username__iexact=query)
+    else:
+      object_list = None
     return object_list
+
   
 @permission_required('zapp.can_approve')
 def approve_timesheets(request):
