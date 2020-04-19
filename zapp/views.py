@@ -9,7 +9,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from .forms import TimesheetForm, EmployeeSearch
+from .forms import TimesheetForm
 from .models import Employee, Timesheet, User
 
 def login(request):
