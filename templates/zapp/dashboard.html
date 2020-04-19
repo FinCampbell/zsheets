@@ -22,7 +22,7 @@
                <div class="thumbnail">
                  <p><strong>View Timesheets</strong></p>
                  <p>View current and previous timesheets</p>
-                 <a class="btn" href="{% url 'my_schedule'%}" role="button">View Timesheets</a>
+                 <a class="btn" href="{% url 'zapp:my_schedule'%}" role="button">View Timesheets</a>
                </div>
              </div>
 
@@ -30,7 +30,7 @@
                <div class="thumbnail">
                  <p><strong>Submit Timesheets</strong></p>
                  <p>Submit your timesheets to be approved.</p>
-                 <a class="btn" href="{% url 'submit_timesheet'%}" role="button">Submit Timesheets</a>
+                 <a class="btn" href="{% url 'zapp:submit_timesheet'%}" role="button">Submit Timesheets</a>
                </div>
              </div>
 
@@ -39,7 +39,7 @@
               <div class="thumbnail">
                 <p><strong>Approve Timesheets</strong></p>
                 <p>View all employee timesheets that need approval</p>
-                <a class="btn" href="{% url 'approve_timesheets'%}" role="button">View Timesheets for Approval</a>
+                <a class="btn" href="{% url 'zapp:approve_timesheets'%}" role="button">View Timesheets for Approval</a>
               </div>
             </div>
 
@@ -47,7 +47,7 @@
               <div class="thumbnail">
                 <p><strong>Search Schedules</strong></p>
                 <p>Search for employees' schedules</p>
-                <form action="{% url 'search_schedules' %}" method="get">
+                <form action="{% url 'zapp:search_schedules' %}" method="get">
                   <input name="q" type="text" placeholder="Search...">
                 </form>
               </div>

@@ -15,10 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 
+from zapp.views import login
+
+from django.contrib.auth.views import LoginView
+
 from django.urls import include, path
 
 urlpatterns = [
-    path('zapp/', include('zapp.urls')),
+    path('', login, name="default"),
+    path('zapp/', include('zapp.urls'), name="zapp"),
     path('admin/', admin.site.urls),  
+    path('accounts/login/', LoginView.as_view(redirect_authenticated_user=True, template_name='registration/login.html'), name="login"),
     path('accounts/', include('django.contrib.auth.urls'))
 ]

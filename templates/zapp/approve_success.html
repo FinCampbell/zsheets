@@ -1,0 +1,8 @@
+{% extends 'zapp/base.html'%}
+{% block content %}
+
+<p>Success!</p> 
+<p>After 3 seconds you will be redirected back to timesheet approval!</p> 
+<meta http-equiv="refresh" content="3;url={% url 'zapp:approve_timesheets'%}">
+
+{% endblock content %}

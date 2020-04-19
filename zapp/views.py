@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
+from django.urls import reverse
 
 # Create your views here.
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -12,6 +13,15 @@ from .models import Employee, Timesheet, User
 def login(request):
     return redirect('/accounts/login/')
 
+class success(TemplateView):
+  template_name = 'zapp/success.html'
+  
+class approve_success(TemplateView):
+  template_name = 'zapp/approve_success.html'
+  
+class error(TemplateView):
+  template_name = 'zapp/error.html'
+  
 @login_required
 def user_dashboard(request):
     return render(request, 'zapp/dashboard.html', {})
@@ -25,7 +35,7 @@ def submit_timesheet(request):
             timesheet.employee = request.user.employee
             timesheet.username = request.user.username
             timesheet.save()
-            return HttpResponse("Your submission has been successful, please wait for your managers approval.")
+            return redirect("zapp:success")
     else:
         form = TimesheetForm()
     return render(request, 'zapp/submit_timesheet.html', {'form' : form})
@@ -56,12 +66,12 @@ def approve_timesheets(request):
             timesheet = Timesheet.objects.get(id=request.POST['timesheet'])
             
         except (KeyError, Timesheet.DoesNotExist):
-            return HttpResponse('error, refresh page')
+            return redirect("zapp:error")
 
         else:
             timesheet.approved_status = True
             timesheet.save()
-            return HttpResponse('Timesheet approved')
+            return redirect("zapp:approve_success")
     else:
         pending_timesheets = Timesheet.objects.filter(approved_status=False)
     return render(request, 'zapp/approve_timesheets.html', {'pending_timesheets' : pending_timesheets})

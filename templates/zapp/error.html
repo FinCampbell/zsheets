@@ -1,0 +1,8 @@
+{% extends 'zapp/base.html'%}
+{% block content %}
+
+<p>There has been an error!</p> 
+<p>After 5 seconds you will be redirected to the main page</p> 
+<meta http-equiv="refresh" content="5;url={% url 'zapp:user_dashboard'%}">
+
+{% endblock content %}
