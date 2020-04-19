@@ -42,6 +42,8 @@ class Timesheet(models.Model):
     friday = models.IntegerField(default=0)
 
     approved_status = models.BooleanField(default=False)
+    
+    username = models.CharField(max_length=255, default="default")
 
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
 

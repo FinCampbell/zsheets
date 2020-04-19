@@ -23,6 +23,7 @@ def submit_timesheet(request):
         if form.is_valid():
             timesheet = form.save(commit=False)
             timesheet.employee = request.user.employee
+            timesheet.username = request.user.username
             timesheet.save()
             return HttpResponse("Your submission has been successful, please wait for your managers approval.")
     else:
@@ -45,7 +46,7 @@ class EmployeeSearchView(PermissionRequiredMixin, ListView):
   
   def get_queryset(self):
     query = self.request.GET.get('q')
-    object_list =  User.objects.filter(username__iexact=query)
+    object_list =  Timesheet.objects.filter(username__iexact=query)
     return object_list
   
 @permission_required('zapp.can_approve')

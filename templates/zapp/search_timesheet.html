@@ -5,10 +5,10 @@
 <h1>Search Results</h1>
 
 <ul>
-  {% for Employee in object_list %}
-    <li>
-      {{ Employee.username }}
-    </li>
+  {% for timesheet in object_list %}
+    <div class="thumbnail">
+       <p> Week Beginning: {{ timesheet }} Mon: {{ timesheet.monday }} Tue: {{ timesheet.tuesday }} Wed: {{ timesheet.wednesday }} Thur: {{ timesheet.thursday }} Fri: {{ timesheet.friday }} </p>
+    </div>
   {% endfor %}
 </ul>
 
