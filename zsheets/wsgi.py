@@ -1,5 +1,5 @@
 """
-WSGI config for TimesheetsProject project.
+WSGI config for zsheets project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'TimesheetsProject.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'zsheets.settings')
 
 application = get_wsgi_application()

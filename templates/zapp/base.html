@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    {# Make modifiable head elements #}
+    <head>
+        <title>{% block title %}Home {% endblock title %} | Timesheets</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+    {# Navigation Menu #}
+  {%block header%}
+    <header>
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+              <a class="navbar-brand">Timesheets</a>
+              {%block BackButton%}<a class="previousButton glyphicon" href="{% url 'zapp:user_dashboard'%}" title="Back to Dashboard">
+                &#xe091;</a>{%endblock BackButton%}
+          </div>
+
+          <!-- can collapse -->
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">Your Details <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                      <li><p>Your User ID: {{user.id}} <br> Your Manager: {{ user.employee.manager }} </p></li>
+                    </ul>
+              </li>
+
+              {% if user.is_authenticated %}
+                  <li><a href="{% url 'logout'%}">Logout</a></li>
+              {% endif %}
+            </ul>
+          </div>
+
+        </div>
+      </nav>
+    </header>
+ {%endblock header%}
+
+    {# The Document Body #}
+    <div id="site-wrapper">
+        {% block content %}
+            if you see this, something is wrong!
+        {% endblock content %}
+    </div>
+
+</body>
+</html>
+
+
+<style>
+.previousButton {
+  background-color: #f1f1f1;
+  color: Grey;
+  border-radius: 70%;
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 16px;
+  margin-top: 10px}
+
+.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+body {
+  margin-top: 55px;
+}
+
+</style>
