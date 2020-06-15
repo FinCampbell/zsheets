@@ -1,3 +1,7 @@
+## This project was done collaboratively
+
+We created this project using industry procedures inlcuding version control software which allowed us to efficiently work together to create the project
+
 ## The following doc includes instructions on how to navigate the project - particularly changing and dealing with the front end.
 
 #Directory Structure (zsheet v1.1)
